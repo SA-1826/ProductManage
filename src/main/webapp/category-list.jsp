@@ -27,5 +27,9 @@
 			}
 		%>
 	</table>
+	
+	<form action="category-register-form-servlet" method="POST">
+		<input type="submit" value="新規カテゴリー登録">
+	</form>
 </body>
 </html>

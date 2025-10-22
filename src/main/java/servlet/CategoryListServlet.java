@@ -38,12 +38,20 @@ public class CategoryListServlet extends HttpServlet {
 		CategoryDAO dao = new CategoryDAO();
 		try {
 			categoryList = dao.selectAll();
+			
+			request.setAttribute("categoryList", categoryList);
+			RequestDispatcher rd = request.getRequestDispatcher("category-list.jsp");
+			rd.forward(request, response);
+			
 		} catch (SQLException | ClassNotFoundException e) {
 			e.printStackTrace();
+			// エラーメッセージを設定
+			request.setAttribute("errorMessage", "データベース接続に失敗しました。時間をおいて再度お試しください。");
+			// エラー画面に転送
+			RequestDispatcher rd = request.getRequestDispatcher("error-db.jsp");
+			rd.forward(request, response);
 		}
-		request.setAttribute("categoryList", categoryList);
-		RequestDispatcher rd = request.getRequestDispatcher("category-list.jsp");
-		rd.forward(request, response);
+		
 	}
 
 	/**

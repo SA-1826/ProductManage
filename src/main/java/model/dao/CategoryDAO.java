@@ -1,6 +1,7 @@
 package model.dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,5 +36,29 @@ public class CategoryDAO {
 			}
 		}
 		return categoryList;
+	}
+	
+	/**
+	 * 入力されたカテゴリ情報を登録します。
+	 * @param category カテゴリオブジェクト
+	 * @return 処理件数
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public int insert(CategoryBean category) throws SQLException, ClassNotFoundException {
+		int processingNumber = 0;
+		String sql = "INSERT INTO categories (id, category_name) VALUES (?, ?)";
+		try (Connection con = ConnectionManager.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(sql)) {
+			
+			int id = category.getId();
+			String category_name = category.getCategoryName();
+			
+			pstmt.setInt(1, id);
+			pstmt.setString(2, category_name);
+			
+			processingNumber = pstmt.executeUpdate();
+		}
+		return processingNumber;
 	}
 }
