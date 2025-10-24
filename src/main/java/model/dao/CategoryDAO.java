@@ -28,10 +28,10 @@ public class CategoryDAO {
 				ResultSet rs = stmt.executeQuery("SELECT * FROM categories")) {
 			while (rs.next()) {
 				int id = rs.getInt("id");
-				String category_name = rs.getString("category_name");
+				String categoryName = rs.getString("category_name");
 				CategoryBean category = new CategoryBean();
 				category.setId(id);
-				category.setCategoryName(category_name);
+				category.setCategoryName(categoryName);
 				categoryList.add(category);
 			}
 		}
@@ -52,10 +52,10 @@ public class CategoryDAO {
 				PreparedStatement pstmt = con.prepareStatement(sql)) {
 			
 			int id = category.getId();
-			String category_name = category.getCategoryName();
+			String categoryName = category.getCategoryName();
 			
 			pstmt.setInt(1, id);
-			pstmt.setString(2, category_name);
+			pstmt.setString(2, categoryName);
 			
 			processingNumber = pstmt.executeUpdate();
 		}

@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import model.dao.CategoryDAO;
 import model.entity.CategoryBean;
@@ -33,8 +32,8 @@ public class CategoryRegisterServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher rd = request.getRequestDispatcher("category-register-form.jsp");
+		rd.forward(request, response);
 	}
 
 	/**
@@ -42,13 +41,12 @@ public class CategoryRegisterServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
 		
 		CategoryBean category = new CategoryBean();
 		category.setId(Integer.parseInt(request.getParameter("id")));
 		category.setCategoryName(request.getParameter("categoryName"));
 		
-		session.setAttribute("category", category);
+		request.setAttribute("category", category);
 		
 		CategoryDAO dao = new CategoryDAO();
 		int processingNumber = 0;

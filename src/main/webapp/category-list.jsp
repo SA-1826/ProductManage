@@ -28,7 +28,7 @@
 		%>
 	</table>
 	
-	<form action="category-register-form-servlet" method="POST">
+	<form action="category-register-servlet" method="GET">
 		<input type="submit" value="新規カテゴリー登録">
 	</form>
 </body>
